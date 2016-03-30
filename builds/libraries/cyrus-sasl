@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Build Path: /app/.heroku/python/
+
+OUT_PREFIX=$1
+
+echo "Building Cyrus-Sasl..."
+
+SOURCE_TARBALL='ftp://ftp.cyrusimap.org/cyrus-sasl/cyrus-sasl-2.1.26.tar.gz'
+
+curl -O -L $SOURCE_TARBALL | tar xz
+mv cyrus-sasl-2.1.26 cyrus-sasl
+cd cyrus-sasl
+./configure --prefix=$OUT_PREFIX
+make
+make install
+
+# Cleanup
+cd ..
+rm -fr cyrus-sasl
